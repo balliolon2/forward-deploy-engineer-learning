@@ -687,6 +687,7 @@
         <button class="nav-btn" id="tab-stage01" onclick="switchTab('stage01')">Stage 01 Deep Dive</button>
         <button class="nav-btn" id="tab-stage02" onclick="switchTab('stage02')">Stage 02 Deep Dive</button>
         <button class="nav-btn" id="tab-stage03" onclick="switchTab('stage03')">Stage 03 Deep Dive</button>
+        <button class="nav-btn" id="tab-stage04" onclick="switchTab('stage04')">Stage 04 Deep Dive</button>
         <button class="nav-btn" id="tab-domain" onclick="switchTab('domain')">Glossary</button>
         <button class="nav-btn" id="tab-arch" onclick="switchTab('arch')">Architecture Flow</button>
       </nav>
@@ -702,11 +703,11 @@
       </p>
       <div>
         <div class="progress-bar-container">
-          <div class="progress-bar-fill" id="progress-indicator" style="width: 52%;"></div>
+          <div class="progress-bar-fill" id="progress-indicator" style="width: 68%;"></div>
         </div>
         <div class="progress-label">
           <span>Overall Progression</span>
-          <span id="progress-text">Stage 3 / 6 (Hybrid RAG & Exact Citation Engine Verified)</span>
+          <span id="progress-text">Stage 4 / 6 (Compliance Evaluation & Grounding Gate Verified)</span>
         </div>
       </div>
     </section>
@@ -802,30 +803,38 @@
             </div>
 
             <!-- Stage 4 -->
-            <div class="step-item active">
+            <div class="step-item completed">
               <div class="step-dot"></div>
               <div class="step-header">
                 <span class="step-num">STAGE 04</span>
                 <span class="step-name">Compliance Evaluation & Structured Finding Schema</span>
-                <span class="badge-status badge-active">Next Up</span>
+                <span class="badge-status badge-completed">Completed</span>
               </div>
               <p class="step-desc">
-                นำ LLM Tool Calling ร่วมกับ Pydantic/Zod Schemas เพื่อประเมินแต่ละ Criterion โดยส่งคืนสถานะ Pass, Flagged, หรือ Inconclusive พร้อมข้อสังเกตและ Citation
+                สร้าง Seam <code>evaluateCompliance()</code>: ประเมินเกณฑ์ระเบียบ (Policy Criteria) ด้วย Tri-State Finding Taxonomy (pass, flagged, inconclusive) พร้อมระบบ Grounding Gatekeeper ที่จะตัดสิทธิ์และลดระดับสถานะทันทีหาก Citation ที่โมเดลส่งมาไม่ตรงกับหน้าเอกสารจริง 100% ตาม ADR-0003
               </p>
               <div class="step-tags">
-                <span class="pill">Structured Outputs</span>
-                <span class="pill">Policy Validation</span>
-                <span class="pill">Confidence Scoring</span>
+                <span class="pill">ADR-0003</span>
+                <span class="pill">Tri-State Findings</span>
+                <span class="pill">Grounding Gatekeeper</span>
+                <span class="pill">Evaluator Strategy</span>
+                <span class="pill">Vitest TDD (3/3 Passed)</span>
+              </div>
+              <div>
+                <button class="deep-dive-btn" onclick="switchTab('stage04')">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                  อ่านเจาะลึก Stage 04: Structured Findings & Grounding Gate
+                </button>
               </div>
             </div>
 
             <!-- Stage 5 -->
-            <div class="step-item">
+            <div class="step-item active">
               <div class="step-dot"></div>
               <div class="step-header">
                 <span class="step-num">STAGE 05</span>
                 <span class="step-name">Agentic Workflow & Triage Routing</span>
-                <span class="badge-status badge-pending">Planned</span>
+                <span class="badge-status badge-active">Next Up</span>
               </div>
               <p class="step-desc">
                 ระบบตัดสินใจอัตโนมัติ: เชื่อมต่อเข้ากับ Triage Roles (needs-info, ready-for-agent, ready-for-human, wontfix) เพื่อสร้าง Case ให้ Reviewer ตรวจสอบเฉพาะจุดที่มีปัญหา
@@ -921,6 +930,13 @@
               <div>
                 <div class="arch-node-name">docs/adr/0002-...</div>
                 <div class="arch-node-meta">ADR: Page-Bounded & Grounding</div>
+              </div>
+              <span class="badge-status badge-completed">Accepted</span>
+            </div>
+            <div class="arch-node">
+              <div>
+                <div class="arch-node-name">docs/adr/0003-...</div>
+                <div class="arch-node-meta">ADR: Tri-State & Grounding Gate</div>
               </div>
               <span class="badge-status badge-completed">Accepted</span>
             </div>
@@ -1201,6 +1217,9 @@ expect(result.data.artifacts[0].pages[0].text).toBe(
             เราเริ่มด้วยการเขียน Failing Test ก่อนเสมอ (Red) ➔ เขียน Implementation ที่น้อยที่สุดเพื่อให้เทสต์ผ่าน (Green) ➔ เพิ่ม Test case สำหรับ Messy Data ➔ ปรับโค้ดให้สะอาด ปลอดภัย และทดสอบซ้ำจนครบ 3/3 Slices
           </div>
         </div>
+      </div>
+    </section>
+
     <!-- Deep Dive: Stage 03 -->
     <section id="section-stage03" style="display: none;">
       <div class="deep-dive-card">
@@ -1287,6 +1306,89 @@ expect(results[0].text).toContain("ISO 27001");</code></pre>
         </div>
       </div>
     </section>
+
+    <!-- Deep Dive: Stage 04 -->
+    <section id="section-stage04" style="display: none;">
+      <div class="deep-dive-card">
+        <button class="back-btn" onclick="switchTab('curriculum')">← กลับหน้า Roadmap</button>
+        <div class="deep-dive-header">
+          <span class="stage-badge">Deep Dive & Theory</span>
+          <h2>STAGE 04: Compliance Evaluation & Structured Finding Schema</h2>
+          <p class="hero-desc">เจาะลึกกระบวนการประเมินความสอดคล้องระดับองค์กร: ทำไม Binary Pass/Fail ถึงอันตราย, ไตรสถานะ Tri-State Findings, และระบบ Grounding Gatekeeper ที่สกัดกั้น Hallucinated AI Output</p>
+        </div>
+
+        <h3 style="margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">1. ในเชิงทฤษฎีคืออะไร? (The Engineering Theory)</h3>
+        <div class="theory-box">
+          <h4>💡 ปัญหาของ Binary Pass/Fail ในงานสัญญาระหว่างองค์กร</h4>
+          <p>ในงานซอฟต์แวร์ทั่วไป วิศวกรมักมองเงื่อนไขเป็นบูลีน (True / False หรือ Pass / Fail) แต่ในงานกฎหมายและการตรวจสอบคู่ค้า (Compliance Auditing) เอกสารสัญญาจริงมักตกอยู่ในภาวะ <strong>"ข้อมูลไม่สมบูรณ์"</strong> หรือ <strong>"คลุมเครือ"</strong> (เช่น เอกสารสัญญาหน้า 10 พูดถึงการเก็บล็อก แต่ไม่ได้ระบุจำนวนวัน หรือระบุว่าขึ้นอยู่กับนโยบายลูกที่ไม่ได้แนบมาด้วย) การบังคับให้ระบบเลือกแค่ Pass หรือ Fail จะนำไปสู่หายนะด้าน Compliance ทันที</p>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comp-col bad">
+            <div class="comp-title bad">❌ Binary Classification (ระบบที่อันตราย)</div>
+            <ul style="padding-left: 1.25rem; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li>ถ้าหาเอกสารไม่เจอ ➔ สรุปว่า <em>Fail</em> (สร้าง False Alarm ให้คู่ค้าไม่ผ่านเกณฑ์โดยไม่จำเป็น)</li>
+              <li>ถ้า AI เจอร่องรอยคำว่าล็อก ➔ สรุปว่า <em>Pass</em> (ปล่อยให้สัญญาที่มีช่องโหว่ทางกฎหมายหลุดรอด)</li>
+              <li>เชื่อใจข้อความที่โมเดลตอบโดยไม่ Re-verify Citation (เสี่ยงต่อ AI หลอนตัวเลข)</li>
+            </ul>
+          </div>
+          <div class="comp-col good">
+            <div class="comp-title good">✅ Tri-State Taxonomy + Grounding Gate (FDE Approach)</div>
+            <ul style="padding-left: 1.25rem; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li><strong>Pass:</strong> พบหลักฐานชัดเจน และข้อความในสัญญาตรงตามเกณฑ์ 100%</li>
+              <li><strong>Flagged:</strong> พบหลักฐานชัดเจน แต่ข้อความระบุชัดว่าละเมิดเกณฑ์ (เช่น สัญญาบอก 60 วัน เกณฑ์ขอ 180 วัน)</li>
+              <li><strong>Inconclusive:</strong> ข้อมูลไม่เพียงพอ หรือ <strong>Citation ปลอม</strong> ➔ ส่งต่อไปยังคิว Reviewer มนุษย์ทันที</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">2. การตัดสินใจทางสถาปัตยกรรม (ADR-0003 Deep Dive)</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+          เราได้บันทึกการตัดสินใจใน <a href="docs/adr/0003-schema-enforced-tri-state-findings-and-grounding-gate.md" style="color: var(--primary-light);"><code>docs/adr/0003-schema-enforced-tri-state-findings-and-grounding-gate.md</code></a>:
+        </p>
+        <ul style="padding-left: 1.5rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.8;">
+          <li><strong>Strict Tri-State Schema:</strong> ทุก <code>Finding</code> ต้องมีสถานะ <code>pass</code>, <code>flagged</code>, หรือ <code>inconclusive</code> พร้อม <code>confidence</code>, <code>reasoning</code>, และ <code>citations[]</code></li>
+          <li><strong>The Grounding Gatekeeper Invariant:</strong> ไม่อนุญาตให้ Finding ใดคงสถานะ <code>pass</code> ได้เด็ดขาด หาก Citation ที่แนบมาไม่ผ่านการตรวจสอบแบบ Exact Substring ผ่าน <code>verifyCitation()</code></li>
+          <li><strong>Automated Downgrade to Inconclusive:</strong> เมื่อตรวจพบว่า AI อ้างอิงข้อความที่ไม่มีอยู่จริง ระบบจะลดระดับสถานะเป็น <code>inconclusive</code> พร้อมบันทึก <code>[Grounding violation]</code> ลงใน Audit Log ทันที</li>
+          <li><strong>Strategy Pattern for Pluggable Evaluators:</strong> แยกระหว่าง Rule Evaluator (สำหรับ TDD/Local) และ LLM Client (สำหรับ Production)</li>
+        </ul>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">3. ระเบียบวิธี TDD & โค้ดที่สร้างจริง (Seam: evaluateCompliance)</h3>
+        <div class="theory-box">
+          <h4>⚡ สรุปผลการทดสอบ Vitest TDD 3/3 Passed</h4>
+          <p>เราทดสอบ Seam <code>evaluateCompliance(dossier, policy, engine, evaluator)</code> ใน 3 กรณีหลัก: (1) กรณีเอกสารผ่านเกณฑ์ 365 วัน ➔ <code>pass</code>, (2) กรณีสัญญาระบุ 60 วันซึ่งต่ำกว่าเกณฑ์ 180 วัน ➔ <code>flagged</code>, (3) กรณีจำลองโมเดล AI หลอน Citation ปลอม ➔ ถูก Grounding Gate สกัดจับและลดระดับเป็น <code>inconclusive</code> ทันที</p>
+        </div>
+
+        <div class="code-container">
+          <div class="code-header">
+            <span>src/evaluation/evaluate-compliance.test.ts</span>
+            <span>Vitest Suite (3 Passed)</span>
+          </div>
+          <pre><code>// 1. Compliant Evidence Test
+const passFindings = await evaluateCompliance(dossier, samplePolicy, engine);
+expect(passFindings[0].status).toBe("pass");
+expect(passFindings[0].groundingVerified).toBe(true);
+
+// 2. Explicit Breach Test (60 days vs 180 days min)
+const flaggedFindings = await evaluateCompliance(breachDossier, samplePolicy, breachEngine);
+expect(flaggedFindings[0].status).toBe("flagged");
+expect(flaggedFindings[0].reasoning).toContain("breaches minimum policy requirement");
+
+// 3. Grounding Gate Interceptor (Hallucinated citation)
+const rogueFindings = await evaluateCompliance(dossier, samplePolicy, engine, hallucinatingEvaluator);
+expect(rogueFindings[0].status).toBe("inconclusive"); // Auto-downgraded from 'pass'!
+expect(rogueFindings[0].groundingVerified).toBe(false);
+expect(rogueFindings[0].reasoning).toContain("Grounding violation");</code></pre>
+        </div>
+
+        <div class="battle-rule" style="margin-top: 1.5rem;">
+          <div class="battle-rule-title">🎯 FDE Battle Rule: "Never Trust Raw LLM Output With Pass Status"</div>
+          <div class="battle-rule-body">
+            ความผิดพลาดอันดับ 1 ของทีมที่ทำ AI ในองค์กรคือการนำ output JSON ของ LLM มาใช้ตรงๆ โดยไม่มี Code-level Gatekeeper การมี <strong>Grounding Gate</strong> ดักจับแบบที่เราสร้างขึ้นนี้ คือสิ่งที่แยกความแตกต่างระหว่าง "เดโมของเล่น" กับ "ซอฟต์แวร์ระดับ Enterprise ที่ทนทานต่อการถูกตรวจสอบบัญชี (Audit-proof System)"
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -1299,7 +1401,7 @@ expect(results[0].text).toContain("ISO 27001");</code></pre>
       const activeBtn = document.getElementById('tab-' + tabId);
       if (activeBtn) activeBtn.classList.add('active');
 
-      const sections = ['curriculum', 'domain', 'arch', 'stage01', 'stage02', 'stage03'];
+      const sections = ['curriculum', 'domain', 'arch', 'stage01', 'stage02', 'stage03', 'stage04'];
       sections.forEach(s => {
         const el = document.getElementById('section-' + s);
         if (el) el.style.display = (s === tabId) ? 'block' : 'none';
