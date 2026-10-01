@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "demo": "tsx src/demo.ts"
   },
   "type": "module",
   "bugs": {
@@ -17,6 +18,7 @@
   "homepage": "https://github.com/balliolon2/forward-deploy-engineer-learning#readme",
   "devDependencies": {
     "@types/node": "^26.6.3",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^5.0.3"
   },
