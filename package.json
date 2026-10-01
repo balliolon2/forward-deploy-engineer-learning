@@ -1,0 +1,26 @@
+{
+  "name": "forward-deploy-engineer-learning",
+  "version": "1.0.0",
+  "description": "A hands-on, enterprise-grade project for mastering Forward Deployed Engineering skills: - **Domain Modeling & Ubiquitous Language**: Clean separation between business domain and technical artifacts. - **Document & Data Ingestion**: Handling messy real-world contracts, PDFs, and ISO certifications. - **Hybrid RAG & Exact Citation Engine**: Dense + Sparse BM25 retrieval with strict source provenance (no hallucination without citation). - **Compliance Rule Engine**: Schema-enforced evaluation (Pass, Flagged, Inconclusive). - **Agentic Triage & State Machine**: Routing cases to human operators via canonical 5-role triage vocabulary. - **Operator Action Workspace**: Operational interface for review, audit trail, and determination.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/balliolon2/forward-deploy-engineer-learning/issues"
+  },
+  "homepage": "https://github.com/balliolon2/forward-deploy-engineer-learning#readme",
+  "devDependencies": {
+    "@types/node": "^26.6.3",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.3"
+  },
+  "dependencies": {
+    "zod": "^4.6.5"
+  }
+}
