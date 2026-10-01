@@ -664,6 +664,204 @@
     .comp-title.bad { color: var(--danger); }
     .comp-title.good { color: var(--success); }
 
+    /* Stage 06: Split-Screen Workbench & Audit Trail Styles */
+    .workbench-container {
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      margin: 1.5rem 0;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .workbench-topbar {
+      background: rgba(30, 41, 59, 0.8);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .workbench-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      min-height: 480px;
+    }
+
+    @media (max-width: 900px) {
+      .workbench-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .doc-panel {
+      border-right: 1px solid var(--border-subtle);
+      background: #060a12;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .doc-page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.15);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .doc-text-content {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 1.5rem;
+      flex: 1;
+      overflow-y: auto;
+    }
+
+    .cite-highlight {
+      background: rgba(239, 68, 68, 0.25);
+      color: #fca5a5;
+      border-bottom: 2px solid var(--danger);
+      padding: 0.15rem 0.35rem;
+      border-radius: 4px;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .cite-highlight::after {
+      content: '📍 Citation Match';
+      position: absolute;
+      top: -1.4rem;
+      left: 0;
+      font-size: 0.65rem;
+      font-family: var(--font-mono);
+      background: var(--danger);
+      color: white;
+      padding: 0.1rem 0.4rem;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .action-panel {
+      padding: 1.5rem;
+      background: rgba(17, 24, 39, 0.8);
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .action-card-header {
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.75rem;
+    }
+
+    .action-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+      text-align: left;
+    }
+
+    .action-btn-override {
+      background: rgba(245, 158, 11, 0.15);
+      border-color: rgba(245, 158, 11, 0.4);
+      color: #fbbf24;
+    }
+    .action-btn-override:hover {
+      background: var(--warning);
+      color: #0b0f19;
+    }
+
+    .action-btn-reject {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #f87171;
+    }
+    .action-btn-reject:hover {
+      background: var(--danger);
+      color: white;
+    }
+
+    .action-btn-info {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: rgba(6, 182, 212, 0.4);
+      color: #38bdf8;
+    }
+    .action-btn-info:hover {
+      background: var(--secondary);
+      color: #0b0f19;
+    }
+
+    .audit-trail-section {
+      background: #030712;
+      border-top: 1px solid var(--border-subtle);
+      padding: 1.25rem;
+    }
+
+    .audit-trail-title {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .audit-log-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .audit-item {
+      display: grid;
+      grid-template-columns: 140px 180px 120px 1fr;
+      gap: 0.75rem;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 0.5rem 0.85rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 768px) {
+      .audit-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+
     footer {
       border-top: 1px solid var(--border-subtle);
       padding: 1.5rem 2rem;
@@ -689,6 +887,7 @@
         <button class="nav-btn" id="tab-stage03" onclick="switchTab('stage03')">Stage 03 Deep Dive</button>
         <button class="nav-btn" id="tab-stage04" onclick="switchTab('stage04')">Stage 04 Deep Dive</button>
         <button class="nav-btn" id="tab-stage05" onclick="switchTab('stage05')">Stage 05 Deep Dive</button>
+        <button class="nav-btn" id="tab-stage06" onclick="switchTab('stage06')">Stage 06 Deep Dive</button>
         <button class="nav-btn" id="tab-domain" onclick="switchTab('domain')">Glossary</button>
         <button class="nav-btn" id="tab-arch" onclick="switchTab('arch')">Architecture Flow</button>
       </nav>
@@ -704,11 +903,11 @@
       </p>
       <div>
         <div class="progress-bar-container">
-          <div class="progress-bar-fill" id="progress-indicator" style="width: 84%;"></div>
+          <div class="progress-bar-fill" id="progress-indicator" style="width: 100%;"></div>
         </div>
         <div class="progress-label">
           <span>Overall Progression</span>
-          <span id="progress-text">Stage 5 / 6 (Agentic Workflow & Triage Routing Verified)</span>
+          <span id="progress-text" style="color: var(--success); font-weight: 600;">Stage 6 / 6 (All Stages Complete! 100% End-to-End Enterprise System Verified 🎉)</span>
         </div>
       </div>
     </section>
@@ -856,38 +1055,28 @@
             </div>
 
             <!-- Stage 6 -->
-            <div class="step-item active">
+            <div class="step-item completed">
               <div class="step-dot"></div>
               <div class="step-header">
                 <span class="step-num">STAGE 06</span>
                 <span class="step-name">Operator Action Dashboard & Audit Trail</span>
-                <span class="badge-status badge-active">Next Up</span>
+                <span class="badge-status badge-completed">Completed</span>
               </div>
               <p class="step-desc">
-                ระบบตัดสินใจอัตโนมัติ: เชื่อมต่อเข้ากับ Triage Roles (needs-info, ready-for-agent, ready-for-human, wontfix) เพื่อสร้าง Case ให้ Reviewer ตรวจสอบเฉพาะจุดที่มีปัญหา
+                สร้าง Seam <code>executeDetermination()</code> และ <code>inspectEvidenceContext()</code>: หน้าจอสำหรับ Reviewer ตรวจหลักฐานแบบ Split-screen (ด้านซ้ายเอกสารจริงพร้อมชี้พิกัดไฮไลต์ citation - ด้านขวาผลตรวจและเหตุผล) พร้อมระบบ Append-Only Audit Trail บันทึกทุกคำวินิจฉัยและ Event สู่ Immutable Store ตาม ADR-0005
               </p>
               <div class="step-tags">
-                <span class="pill">State Machine</span>
-                <span class="pill">Triage Routing</span>
-                <span class="pill">Case Generation</span>
-              </div>
-            </div>
-
-            <!-- Stage 6 -->
-            <div class="step-item">
-              <div class="step-dot"></div>
-              <div class="step-header">
-                <span class="step-num">STAGE 06</span>
-                <span class="step-name">Operator Action Dashboard & Audit Trail</span>
-                <span class="badge-status badge-pending">Planned</span>
-              </div>
-              <p class="step-desc">
-                หน้าจอสำหรับ Reviewer: ตรวจหลักฐานแบบ Split-screen (ด้านซ้ายเอกสารต้นฉบับ ชี้ไฮไลต์ citation - ด้านขวาผลวิเคราะห์) พร้อมบันทึก Determination และ Audit Log ลงฐานข้อมูล
-              </p>
-              <div class="step-tags">
-                <span class="pill">Reviewer UI</span>
+                <span class="pill">ADR-0005</span>
+                <span class="pill">Split-Screen UI</span>
                 <span class="pill">Citation Deep-Linking</span>
-                <span class="pill">Audit Trail</span>
+                <span class="pill">Append-Only Audit Trail</span>
+                <span class="pill">Vitest TDD (7/7 Passed)</span>
+              </div>
+              <div>
+                <button class="deep-dive-btn" onclick="switchTab('stage06')">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                  อ่านเจาะลึก Stage 06: Reviewer Dashboard, Split-Screen & Audit Trail
+                </button>
               </div>
             </div>
           </div>
@@ -1523,6 +1712,212 @@ expect(resolvedCase.state).toBe("RESOLVED");</code></pre>
         </div>
       </div>
     </section>
+
+    <!-- Deep Dive: Stage 06 -->
+    <section id="section-stage06" style="display: none;">
+      <div class="deep-dive-card">
+        <button class="back-btn" onclick="switchTab('curriculum')">← กลับหน้า Roadmap</button>
+        <div class="deep-dive-header">
+          <span class="stage-badge">Deep Dive & Theory</span>
+          <h2>STAGE 06: Operator Action Dashboard & Audit Trail</h2>
+          <p class="hero-desc">เจาะลึกกระบวนการตัดสินใจหน้างาน (Human-in-the-Loop): ทำไมระบบดาวน์โหลด PDF แบบเดิมถึงล้มเหลว, ทฤษฎี Split-Screen Evidence Deep-Linking, ไตรคำวินิจฉัย (Tri-Action Determinations), และระบบบันทึก Audit Trail แบบ Append-Only ป้องกันการปลอมแปลง (Tamper-Proof Event Sourcing)</p>
+        </div>
+
+        <h3 style="margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">1. ในเชิงทฤษฎีคืออะไร? (The Engineering Theory)</h3>
+        <div class="theory-box">
+          <h4>💡 ปัญหา "Mean Time to Determination (MTTD)" & หลุมพรางของ Detached Downloads</h4>
+          <p>ในระบบ Compliance ที่มีสัญญาเข้ามาเป็นร้อยฉบับ การให้เจ้าหน้าที่ (Reviewer) กดดาวน์โหลดไฟล์ PDF ขนาด 50 หน้า แล้วเปิด Adobe Acrobat นั่งกด <code>Ctrl+F</code> ควานหาคำที่ AI เตือน เป็นสาเหตุหลักที่ทำให้กระบวนการตรวจสอบล่าช้า (MTTD สูงถึง 15-30 นาทีต่อเคส) และทำให้ Reviewer มองไม่เห็นบริบทแวดล้อม นำไปสู่การตัดสินใจที่ผิดพลาด</p>
+          <p style="margin-top: 0.5rem;">FDE แก้ปัญหานี้ด้วย <strong>Contextual Split-Screen Deep-Linking</strong>: ด้านขวาแสดง Finding พร้อมข้อความที่ละเมิด และด้านซ้ายเรนเดอร์หน้าเอกสารจริงพร้อมพิกัด <code>charOffset</code> และทำไฮไลต์ <code>exactQuote</code> แบบทันที เพื่อให้ Reviewer สามารถอ่านประโยคหน้า-หลังและตัดสินใจได้ภายในไม่กี่วินาที</p>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comp-col bad">
+            <div class="comp-title bad">❌ Detached Document Download (ระบบดั้งเดิม)</div>
+            <ul style="padding-left: 1.25rem; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li>Reviewer ต้องดาวน์โหลดไฟล์และเปิดหน้าต่างแยกเพื่อหาหลักฐาน</li>
+              <li>ต้องค้นหาข้อความเอง เสี่ยงต่อการดูผิดหน้าหรือผิดวรรค</li>
+              <li>การบันทึกผลเป็น Free-text comment ในตารางเดิม (Update-in-place) ลบหรือแก้ได้ ไร้ความน่าเชื่อถือทางกฎหมาย</li>
+            </ul>
+          </div>
+          <div class="comp-col good">
+            <div class="comp-title good">✅ Split-Screen In-Situ Deep-Linking & Event Sourcing (FDE Approach)</div>
+            <ul style="padding-left: 1.25rem; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li><strong>In-Situ Deep-Link:</strong> ไฮไลต์ประโยคตรงเป๊ะบนหน้าเอกสารจริงทันทีที่เปิด Case</li>
+              <li><strong>Canonical Tri-Action:</strong> คำวินิจฉัยมาตรฐาน 3 แบบ (<code>approved_override</code>, <code>rejected</code>, <code>information_requested</code>) บังคับกรอก Rationale เสมอ</li>
+              <li><strong>Append-Only Event Stream:</strong> ทุก Action สร้าง <code>AuditEvent</code> ห้ามแก้ไขหรือลบ ยืนยันความโปร่งใสระดับ SOC 2 / ISO 27001</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">2. การตัดสินใจทางสถาปัตยกรรม (ADR-0005 Deep Dive)</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+          เราได้บันทึกการตัดสินใจใน <a href="docs/adr/0005-split-screen-evidence-inspection-and-tamper-proof-audit-trail.md" style="color: var(--primary-light);"><code>docs/adr/0005-split-screen-evidence-inspection-and-tamper-proof-audit-trail.md</code></a>:
+        </p>
+        <ul style="padding-left: 1.5rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.8;">
+          <li><strong>Deep-Linking Offset Coordinates:</strong> Seam <code>inspectEvidenceContext()</code> ค้นหาพิกัด <code>charOffsetStart / charOffsetEnd</code> เพื่อส่งไปทำ Visual Highlight บนหน้าเอกสาร</li>
+          <li><strong>Finite State Machine Enforcement:</strong> ไม่อนุญาตให้ Resolve เคสที่ยังไม่ถูก Claim (ต้องอยู่ในสถานะ <code>IN_REVIEW</code>) และ Reviewer ที่ Resolve ต้องเป็นคนเดียวกับที่ Claim ไว้</li>
+          <li><strong>Immutable Event Store:</strong> Seam <code>executeDetermination()</code> บันทึก <code>AuditEvent</code> ลง <code>AuditStore</code> โดยทำการ <code>Object.freeze()</code> ทุกข้อมูลเพื่อป้องกันการแทรกแซงหรือดัดแปลงย้อนหลัง</li>
+        </ul>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">3. ระเบียบวิธี TDD & โค้ดที่สร้างจริง (Seams: executeDetermination, inspectEvidenceContext)</h3>
+        <div class="theory-box">
+          <h4>⚡ สรุปผลการทดสอบ Vitest TDD 7/7 Passed</h4>
+          <p>เราทดสอบครอบคลุมทุกมิติ: (1) การบันทึก Determination พร้อมส่งออก AuditEvent, (2) การปฏิเสธคำสั่ง Resolve บน Case ที่ยังไม่ Claim, (3) การปฏิเสธเมื่อ Reviewer ไม่ตรงกับผู้ Claim, (4) การปฏิเสธ Rationale ที่ว่างเปล่า, (5) การตรวจสอบ Append-only Event Stream, (6) การคำนวณ Character Offset ไฮไลต์ Citation สำเร็จ, (7) การแจ้งเตือนเมื่อ Citation ไม่ตรงกับหน้าจริง</p>
+        </div>
+
+        <div class="code-container">
+          <div class="code-header">
+            <span>src/dashboard/operator-action.test.ts</span>
+            <span>Vitest Suite (7 Passed)</span>
+          </div>
+          <pre><code>// 1. Successful Determination & Audit Trail Emission
+const result = await executeDetermination(mockClaimedCase, {
+  reviewerId: "rev_sarah_ciso",
+  type: "approved_override",
+  rationale: "CISO executive exception granted due to secondary cloud logging backup.",
+  timestamp: "2026-10-01T14:30:00.000Z"
+}, auditStore);
+
+expect(result.resolvedCase.state).toBe("RESOLVED");
+expect(result.auditEvent.eventType).toBe("DETERMINATION_RECORDED");
+
+// 2. State Machine Guard (Rejecting unclaimed case)
+await expect(() => executeDetermination(mockOpenCase, ...))
+  .rejects.toThrow("must be claimed in IN_REVIEW state first");
+
+// 3. Evidence Deep-Linking Context
+const viewContext = inspectEvidenceContext(mockArtifact, 2, citation);
+expect(viewContext.found).toBe(true);
+expect(viewContext.charOffsetStart).toBeGreaterThanOrEqual(0);</code></pre>
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">4. Interactive Live Operator Workbench (จำลองการทำงานจริง)</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+          ทดลองสวมบทบาทเป็น <strong>Reviewer (CISO Officer)</strong> ตรวจสอบเคสการละเมิดสัญญา และกดคำวินิจฉัยเพื่อดูระบบบันทึก <strong>Append-Only Audit Trail</strong> แบบเรียลไทม์:
+        </p>
+
+        <!-- The Interactive Workbench -->
+        <div class="workbench-container">
+          <div class="workbench-topbar">
+            <div>
+              <span style="font-family: var(--font-mono); font-weight: 700; color: var(--primary-light);">CASE #case_vendor_999</span>
+              <span style="color: var(--text-dim); margin-left: 0.5rem;">&bull; Vendor: Acme Corp &bull; Triage: <span class="pill" style="border-color: rgba(239, 68, 68, 0.4); color: var(--danger);">ready-for-human</span></span>
+            </div>
+            <div id="case-status-badge">
+              <span class="badge-status badge-active">IN_REVIEW (Claimed by rev_sarah_ciso)</span>
+            </div>
+          </div>
+
+          <div class="workbench-grid">
+            <!-- Left Pane: Primary Source Artifact with Deep-Linking -->
+            <div class="doc-panel">
+              <div class="doc-page-header">
+                <span>📄 master-sla-agreement.pdf (Page 2/4)</span>
+                <span>SHA-256: a1b2c3d4e5f6...</span>
+              </div>
+              <div class="doc-text-content" id="document-viewer">
+                <p style="margin-bottom: 1rem; color: var(--text-dim);">Section 2.1 Billing and payment terms are net 30 days upon receipt of invoices.</p>
+                <p style="margin-bottom: 1rem; color: var(--text-dim);">Section 2.2 Security protocols require all endpoints to be managed via MDM.</p>
+                <p style="margin-bottom: 1rem; color: var(--text-dim);">Section 2.3 Incident response must notify customer within 48 hours of confirmed breach.</p>
+                <p style="background: rgba(255, 255, 255, 0.04); padding: 0.75rem; border-radius: 6px; border-left: 3px solid var(--danger); margin-bottom: 1rem;">
+                  Section 2.4 Data Retention: The vendor shall store and retain customer audit logs for a <mark class="cite-highlight" id="demo-highlight">minimum of 60 days</mark>.
+                </p>
+                <p style="color: var(--text-dim);">Section 2.5 Disaster recovery drills must be performed semi-annually.</p>
+              </div>
+            </div>
+
+            <!-- Right Pane: Evaluation Findings & Determination Actions -->
+            <div class="action-panel">
+              <div class="action-card-header">
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase;">Criterion Assessment</div>
+                <div style="font-weight: 700; font-size: 1.05rem; color: var(--text-main); margin-top: 0.2rem;">POL-SEC-01: Audit Log Retention Period</div>
+                <div style="font-size: 0.85rem; color: var(--danger); margin-top: 0.35rem; display: flex; align-items: center; gap: 0.4rem;">
+                  <span>⚠️ Finding Status: <strong>flagged</strong></span>
+                  <span>&bull;</span>
+                  <span>Confidence: 98%</span>
+                </div>
+              </div>
+
+              <div style="font-size: 0.85rem; color: var(--text-muted); background: rgba(0,0,0,0.3); padding: 0.85rem; border-radius: 6px; border: 1px solid var(--border-subtle);">
+                <strong>AI Finding Reasoning:</strong> สัญญาระบุระยะเวลาเก็บ Log เพียง 60 วัน ซึ่งต่ำกว่าเกณฑ์ความมั่นคงปลอดภัยขั้นต่ำขององค์กร (180 วัน) ถือเป็นความเสี่ยงระดับสูง
+              </div>
+
+              <div id="determination-form">
+                <label style="display: block; font-size: 0.82rem; font-family: var(--font-mono); color: var(--text-dim); margin-bottom: 0.35rem;">
+                  Reviewer Justification / Rationale (บังคับระบุ):
+                </label>
+                <textarea id="reviewer-rationale" rows="3" style="width: 100%; background: #030712; border: 1px solid var(--border-subtle); border-radius: 6px; color: #fff; padding: 0.65rem; font-family: var(--font-body); font-size: 0.85rem; resize: vertical;" placeholder="ระบุเหตุผลการตัดสินใจทางกฎหมายหรือการผ่อนผัน...">Granted temporary executive waiver with CISO approval due to vendor maintaining dual immutable S3 Glacier mirror.</textarea>
+
+                <div style="margin-top: 1rem;" class="action-btn-group">
+                  <button class="action-btn action-btn-override" onclick="handleDeterminationDemo('approved_override')">
+                    <span>🛡️</span>
+                    <div>
+                      <div>Approve with CISO Override</div>
+                      <div style="font-size: 0.72rem; opacity: 0.8; font-weight: normal;">อนุมัติกรณีพิเศษพร้อมเหตุผลความมั่นคงปลอดภัย</div>
+                    </div>
+                  </button>
+                  <button class="action-btn action-btn-reject" onclick="handleDeterminationDemo('rejected')">
+                    <span>🚫</span>
+                    <div>
+                      <div>Reject Vendor Dossier</div>
+                      <div style="font-size: 0.72rem; opacity: 0.8; font-weight: normal;">ปฏิเสธคู่ค้ารายนี้เนื่องจากไม่ผ่านเกณฑ์ขั้นต่ำ</div>
+                    </div>
+                  </button>
+                  <button class="action-btn action-btn-info" onclick="handleDeterminationDemo('information_requested')">
+                    <span>📩</span>
+                    <div>
+                      <div>Request Additional Evidence</div>
+                      <div style="font-size: 0.72rem; opacity: 0.8; font-weight: normal;">ส่งคำขอเอกสารชี้แจงระบบ Backup เพิ่มเติม</div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              <div id="determination-success" style="display: none; background: rgba(16, 185, 129, 0.15); border: 1px solid var(--success); border-radius: 8px; padding: 1rem; text-align: center;">
+                <div style="color: var(--success); font-weight: 700; font-size: 1rem;" id="success-title">Determination Recorded!</div>
+                <div style="font-size: 0.82rem; color: var(--text-muted); margin-top: 0.3rem;" id="success-desc">Case has transitioned to RESOLVED. Audit Event appended to ledger.</div>
+                <button class="deep-dive-btn" onclick="resetDemo()" style="margin-top: 0.75rem; font-size: 0.78rem;">รีเซ็ตเพื่อทดลองใหม่</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom: Live Audit Trail -->
+          <div class="audit-trail-section">
+            <div class="audit-trail-title">
+              <span>🛡️ Tamper-Proof Audit Trail (Append-Only Event Stream)</span>
+              <span id="audit-event-count" style="color: var(--secondary);">3 Events in Ledger</span>
+            </div>
+            <div class="audit-log-list" id="audit-log-stream">
+              <div class="audit-item">
+                <span style="color: var(--text-dim);">10:00:15 UTC</span>
+                <span style="color: var(--secondary); font-weight: 600;">CASE_CREATED</span>
+                <span class="pill" style="font-size: 0.7rem;">SYSTEM</span>
+                <span style="color: var(--text-muted);">Case created with triage role 'ready-for-human' due to 1 flagged finding</span>
+              </div>
+              <div class="audit-item">
+                <span style="color: var(--text-dim);">10:14:22 UTC</span>
+                <span style="color: var(--warning); font-weight: 600;">CASE_CLAIMED</span>
+                <span class="pill" style="font-size: 0.7rem; color: #fbbf24;">rev_sarah_ciso</span>
+                <span style="color: var(--text-muted);">Reviewer claimed case. State shifted from OPEN to IN_REVIEW</span>
+              </div>
+              <div class="audit-item">
+                <span style="color: var(--text-dim);">10:15:00 UTC</span>
+                <span style="color: var(--primary-light); font-weight: 600;">EVIDENCE_INSPECTED</span>
+                <span class="pill" style="font-size: 0.7rem; color: #fbbf24;">rev_sarah_ciso</span>
+                <span style="color: var(--text-muted);">Deep-link rendered: Page 2, charOffset 184 (exactQuote: "minimum of 60 days")</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="battle-rule" style="margin-top: 1.5rem;">
+          <div class="battle-rule-title">🎯 FDE Battle Rule: "Never Update In-Place in an Audited System"</div>
+          <div class="battle-rule-body">
+            ความลับของสถาปัตยกรรมระดับ Enterprise ที่ชนะใจฝ่ายตรวจสอบบัญชี (Audit & Compliance) คือการเปลี่ยนวิธีคิดจากการใช้คำสั่ง <code>UPDATE cases SET status = 'approved'</code> มาเป็น <strong>Event Sourcing (Append-Only)</strong> เสมอ เพราะเมื่อเกิดเหตุการณ์ข้อมูลรั่วไหลหรือข้อพิพาททางกฎหมาย ประวัติศาสตร์ที่ถูกบันทึกเรียงตามเวลาโดยไม่มีใครแก้ได้ คือหลักฐานชิ้นเดียวที่ปกป้องทั้งองค์กรและลูกค้า!
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -1535,13 +1930,80 @@ expect(resolvedCase.state).toBe("RESOLVED");</code></pre>
       const activeBtn = document.getElementById('tab-' + tabId);
       if (activeBtn) activeBtn.classList.add('active');
 
-      const sections = ['curriculum', 'domain', 'arch', 'stage01', 'stage02', 'stage03', 'stage04', 'stage05'];
+      const sections = ['curriculum', 'domain', 'arch', 'stage01', 'stage02', 'stage03', 'stage04', 'stage05', 'stage06'];
       sections.forEach(s => {
         const el = document.getElementById('section-' + s);
         if (el) el.style.display = (s === tabId) ? 'block' : 'none';
       });
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Demo Interactive Logic for Stage 06
+    function handleDeterminationDemo(actionType) {
+      const rationaleInput = document.getElementById('reviewer-rationale');
+      const rationale = rationaleInput.value.trim();
+      if (!rationale) {
+        alert('กรุณาระบุ Rationale / เหตุผลในการตัดสินใจ (เป็นกฎข้อบังคับของระเบียบ Compliance)');
+        return;
+      }
+
+      const stream = document.getElementById('audit-log-stream');
+      const countEl = document.getElementById('audit-event-count');
+      const badge = document.getElementById('case-status-badge');
+      const form = document.getElementById('determination-form');
+      const successBox = document.getElementById('determination-success');
+      const successTitle = document.getElementById('success-title');
+      const successDesc = document.getElementById('success-desc');
+
+      const now = new Date();
+      const timeStr = now.toISOString().substring(11, 19) + ' UTC';
+
+      let eventColor = '#10b981';
+      let titleText = 'Determination: APPROVED_OVERRIDE';
+      let descText = 'Case #case_vendor_999 RESOLVED with executive override.';
+
+      if (actionType === 'rejected') {
+        eventColor = '#ef4444';
+        titleText = 'Determination: REJECTED';
+        descText = 'Case #case_vendor_999 RESOLVED with rejection. Vendor notified.';
+      } else if (actionType === 'information_requested') {
+        eventColor = '#06b6d4';
+        titleText = 'Determination: INFO_REQUESTED';
+        descText = 'Case #case_vendor_999 RESOLVED with supplemental evidence request.';
+      }
+
+      // Add Audit Event to DOM
+      const newEvent = document.createElement('div');
+      newEvent.className = 'audit-item';
+      newEvent.style.animation = 'fadeIn 0.3s ease';
+      newEvent.innerHTML = `
+        <span style="color: var(--text-dim);">${timeStr}</span>
+        <span style="color: ${eventColor}; font-weight: 600;">DETERMINATION_RECORDED</span>
+        <span class="pill" style="font-size: 0.7rem; color: #fbbf24;">rev_sarah_ciso</span>
+        <span style="color: var(--text-main); font-weight: 500;">[${actionType.toUpperCase()}] "${rationale.substring(0, 50)}..."</span>
+      `;
+      stream.appendChild(newEvent);
+      stream.scrollTop = stream.scrollHeight;
+      countEl.innerText = '4 Events in Ledger (Immutable)';
+
+      // Update Case UI
+      badge.innerHTML = `<span class="badge-status badge-completed">RESOLVED (${actionType.toUpperCase()})</span>`;
+      form.style.display = 'none';
+      successTitle.innerText = titleText;
+      successDesc.innerText = descText;
+      successBox.style.display = 'block';
+    }
+
+    function resetDemo() {
+      document.getElementById('case-status-badge').innerHTML = '<span class="badge-status badge-active">IN_REVIEW (Claimed by rev_sarah_ciso)</span>';
+      document.getElementById('determination-form').style.display = 'block';
+      document.getElementById('determination-success').style.display = 'none';
+      const stream = document.getElementById('audit-log-stream');
+      while (stream.children.length > 3) {
+        stream.removeChild(stream.lastChild);
+      }
+      document.getElementById('audit-event-count').innerText = '3 Events in Ledger';
     }
   </script>
 </body>

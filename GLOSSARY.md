@@ -45,3 +45,8 @@ _Avoid_: User, Admin, Operator, Auditor
 **Determination**:
 The authoritative decision rendered by a Reviewer on a Case (such as Approved, Rejected, Escalated, or Information Requested).
 _Avoid_: Verdict, Resolution, Status, Action
+
+**Audit Trail**:
+An append-only historical record of significant compliance lifecycle events, operational transitions, and Reviewer Determinations.
+_Avoid_: Log, History, Activity Stream, Event Log
+
