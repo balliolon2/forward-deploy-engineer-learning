@@ -688,6 +688,7 @@
         <button class="nav-btn" id="tab-stage02" onclick="switchTab('stage02')">Stage 02 Deep Dive</button>
         <button class="nav-btn" id="tab-stage03" onclick="switchTab('stage03')">Stage 03 Deep Dive</button>
         <button class="nav-btn" id="tab-stage04" onclick="switchTab('stage04')">Stage 04 Deep Dive</button>
+        <button class="nav-btn" id="tab-stage05" onclick="switchTab('stage05')">Stage 05 Deep Dive</button>
         <button class="nav-btn" id="tab-domain" onclick="switchTab('domain')">Glossary</button>
         <button class="nav-btn" id="tab-arch" onclick="switchTab('arch')">Architecture Flow</button>
       </nav>
@@ -703,11 +704,11 @@
       </p>
       <div>
         <div class="progress-bar-container">
-          <div class="progress-bar-fill" id="progress-indicator" style="width: 68%;"></div>
+          <div class="progress-bar-fill" id="progress-indicator" style="width: 84%;"></div>
         </div>
         <div class="progress-label">
           <span>Overall Progression</span>
-          <span id="progress-text">Stage 4 / 6 (Compliance Evaluation & Grounding Gate Verified)</span>
+          <span id="progress-text">Stage 5 / 6 (Agentic Workflow & Triage Routing Verified)</span>
         </div>
       </div>
     </section>
@@ -829,11 +830,37 @@
             </div>
 
             <!-- Stage 5 -->
-            <div class="step-item active">
+            <div class="step-item completed">
               <div class="step-dot"></div>
               <div class="step-header">
                 <span class="step-num">STAGE 05</span>
                 <span class="step-name">Agentic Workflow & Triage Routing</span>
+                <span class="badge-status badge-completed">Completed</span>
+              </div>
+              <p class="step-desc">
+                สร้าง Seam <code>routeDossierFindings()</code> และ <code>transitionCase()</code>: คัดกรองแบบ Exception-Based (Auto-approve เมื่อผ่านหมด และเปิด Case เฉพาะเมื่อมีปัญหา) พร้อมเชื่อมต่อ Canonical 5-role Triage (ready-for-human, needs-info) และควบคุมวงจรชีวิตด้วย Finite State Machine ตาม ADR-0004
+              </p>
+              <div class="step-tags">
+                <span class="pill">ADR-0004</span>
+                <span class="pill">Exception Routing</span>
+                <span class="pill">Canonical 5-role Triage</span>
+                <span class="pill">FSM State Machine</span>
+                <span class="pill">Vitest TDD (6/6 Passed)</span>
+              </div>
+              <div>
+                <button class="deep-dive-btn" onclick="switchTab('stage05')">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+                  อ่านเจาะลึก Stage 05: Agentic Workflow & Triage State Machine
+                </button>
+              </div>
+            </div>
+
+            <!-- Stage 6 -->
+            <div class="step-item active">
+              <div class="step-dot"></div>
+              <div class="step-header">
+                <span class="step-num">STAGE 06</span>
+                <span class="step-name">Operator Action Dashboard & Audit Trail</span>
                 <span class="badge-status badge-active">Next Up</span>
               </div>
               <p class="step-desc">
@@ -937,6 +964,13 @@
               <div>
                 <div class="arch-node-name">docs/adr/0003-...</div>
                 <div class="arch-node-meta">ADR: Tri-State & Grounding Gate</div>
+              </div>
+              <span class="badge-status badge-completed">Accepted</span>
+            </div>
+            <div class="arch-node">
+              <div>
+                <div class="arch-node-name">docs/adr/0004-...</div>
+                <div class="arch-node-meta">ADR: Exception Triage & FSM</div>
               </div>
               <span class="badge-status badge-completed">Accepted</span>
             </div>
@@ -1389,6 +1423,106 @@ expect(rogueFindings[0].reasoning).toContain("Grounding violation");</code></pre
         </div>
       </div>
     </section>
+
+    <!-- Deep Dive: Stage 05 -->
+    <section id="section-stage05" style="display: none;">
+      <div class="deep-dive-card">
+        <button class="back-btn" onclick="switchTab('curriculum')">← กลับหน้า Roadmap</button>
+        <div class="deep-dive-header">
+          <span class="stage-badge">Deep Dive & Theory</span>
+          <h2>STAGE 05: Agentic Workflow & Triage Routing</h2>
+          <p class="hero-desc">เจาะลึกกระบวนการคัดกรองงานสู่ผู้เชี่ยวชาญ (Human-in-the-Loop): ปรัชญา Exception-Based Ops, การผูกกับ Canonical 5-role Triage Vocabulary, และ Finite State Machine ควบคุมวงจรชีวิตของ Case</p>
+        </div>
+
+        <h3 style="margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">1. ในเชิงทฤษฎีคืออะไร? (The Engineering Theory)</h3>
+        <div class="theory-box">
+          <h4>💡 ปัญหา Alert Fatigue และปรัชญา "Escalate Only Exceptions"</h4>
+          <p>ในระบบ Compliance ที่มีสัญญาเข้ามาเดือนละหลายพันฉบับ หากระบบ AI ส่งเคสทั้งหมดมาให้มนุษย์กดยืนยัน (Universal Queuing) เจ้าหน้าที่หน้างานจะเกิดอาการ <strong>Alert Fatigue</strong> และเริ่มกดยอมรับไปแบบส่งๆ โดยไม่ได้อ่านจริง ในทางกลับกัน หากระบบแอบอนุมัติเคสที่มีปัญหาไปเอง ก็จะเสี่ยงต่อข้อผิดพลาดร้ายแรง</p>
+          <p style="margin-top: 0.5rem;">FDE จึงออกแบบระบบแบบ <strong>Exception-Based Routing</strong>: ปล่อยให้เคสที่ผ่านเกณฑ์ 100% วิ่งผ่านไปอัตโนมัติ (Zero Human Touch) และรวมเฉพาะเคสที่มีความเสี่ยงหรือขาดหลักฐานมาเปิดเป็น <strong>`Case`</strong> พร้อมติดแท็กระบุทักษะที่ต้องใช้ในการแก้ปัญหา</p>
+        </div>
+
+        <div class="comparison-grid">
+          <div class="comp-col bad">
+            <div class="comp-title bad">❌ Universal Ticketing (ระบบที่ทำให้คนล้า)</div>
+            <ul style="padding-left: 1.25rem; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li>เปิดตั๋วทุกครั้งที่คู่ค้าส่งเอกสาร แม้ว่าจะสมบูรณ์แบบแล้ว</li>
+              <li>ใช้คำกว้างๆ เช่น <em>"Ticket #1234"</em> ไม่มีบอกว่าใครควรเป็นคนแก้</li>
+              <li>สถานะเป็น Free-form text (เช่น "กำลังดูอยู่", "รอตรวจ") ทำให้ตรวจสอบย้อนหลังไม่ได้</li>
+            </ul>
+          </div>
+          <div class="comp-col good">
+            <div class="comp-title good">✅ Canonical Triage & Finite State Machine (FDE Approach)</div>
+            <ul style="padding-left: 1.25rem; font-size: 0.88rem; color: var(--text-muted); line-height: 1.8;">
+              <li><strong>Auto-Approve:</strong> Dossier ที่ผ่านเกณฑ์ทุกข้อจะได้รับการอนุมัติทันที ไม่เปลืองเวลามนุษย์</li>
+              <li><strong>`ready-for-human`:</strong> เคสที่สัญญาระบุผิดเงื่อนไขชัดเจน (Flagged) ➔ ส่งต่อให้ Reviewer</li>
+              <li><strong>`needs-info`:</strong> เคสที่เอกสารขาดหาย (Inconclusive) ➔ ส่งต่อไปคิวขอเอกสารเพิ่ม</li>
+              <li><strong>Strict FSM:</strong> ควบคุมสถานะ <code>OPEN ➔ IN_REVIEW ➔ RESOLVED</code> อย่างเคร่งครัด</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">2. การตัดสินใจทางสถาปัตยกรรม (ADR-0004 Deep Dive)</h3>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem;">
+          เราได้บันทึกการตัดสินใจใน <a href="docs/adr/0004-exception-based-case-generation-and-triage-state-machine.md" style="color: var(--primary-light);"><code>docs/adr/0004-exception-based-case-generation-and-triage-state-machine.md</code></a>:
+        </p>
+        <ul style="padding-left: 1.5rem; font-size: 0.9rem; color: var(--text-muted); line-height: 1.8;">
+          <li><strong>Exception-Based Trigger:</strong> <code>Case</code> จะถูกสร้างขึ้นก็ต่อเมื่อมี Finding ที่เป็น <code>flagged</code> หรือ <code>inconclusive</code> เท่านั้น</li>
+          <li><strong>Canonical Triage Mapping:</strong> ผูกเข้ากับระบบ 5-role Triage Vocabulary ใน <code>docs/agents/triage-labels.md</code> เพื่อให้เอเจนต์และทีมงานเข้าใจตรงกัน</li>
+          <li><strong>Determination Invariant:</strong> ไม่อนุญาตให้ปิด Case (สถานะ <code>RESOLVED</code>) ได้เด็ดขาด หากไม่มีการบันทึก <strong>`Determination`</strong> ทางการ (เช่น <code>approved_override</code>, <code>rejected</code>, <code>information_requested</code>) พร้อมระบุตัวตน Reviewer และเหตุผล</li>
+          <li><strong>Immutable State History:</strong> Case ที่ถูก Resolve ไปแล้วจะถูกล็อกห้ามแก้ไข (Read-only) เพื่อคงความน่าเชื่อถือของการ Audit</li>
+        </ul>
+
+        <h3 style="margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.15rem; color: var(--text-main);">3. ระเบียบวิธี TDD & โค้ดที่สร้างจริง (Seams: routeDossierFindings, transitionCase)</h3>
+        <div class="theory-box">
+          <h4>⚡ สรุปผลการทดสอบ Vitest TDD 6/6 Passed</h4>
+          <p>เราทดสอบทั้งฝั่ง Routing และ State Machine ครบ 6 กรณี: (1) Auto-approve เมื่อผ่านหมด, (2) Route ไปยัง <code>ready-for-human</code> เมื่อมี Flagged, (3) Route ไปยัง <code>needs-info</code> เมื่อมี Inconclusive, (4) Transition จาก OPEN สู่ IN_REVIEW เมื่อ Reviewer กด Claim, (5) Transition สู่ RESOLVED พร้อมบันทึก Determination, (6) ปฏิเสธ Invalid Transitions เช่น แอบ Resolve เคสที่ยังไม่ได้รับ Claim</p>
+        </div>
+
+        <div class="code-container">
+          <div class="code-header">
+            <span>src/workflow/case-router.test.ts</span>
+            <span>Vitest Suite (6 Passed)</span>
+          </div>
+          <pre><code>// 1. Auto-approval on all pass
+const passOutcome = routeDossierFindings(dossier, allPassFindings);
+expect(passOutcome.autoApproved).toBe(true);
+expect(passOutcome.caseItem).toBeNull();
+
+// 2. Exception Routing to ready-for-human
+const exceptionOutcome = routeDossierFindings(dossier, flaggedFindings);
+expect(exceptionOutcome.caseItem.triageRole).toBe("ready-for-human");
+expect(exceptionOutcome.caseItem.state).toBe("OPEN");
+
+// 3. State Machine: Claiming a Case
+const inReviewCase = transitionCase(openCase, {
+  type: "CLAIM",
+  reviewerId: "rev_alice",
+  timestamp: "2026-10-01T12:30:00.000Z"
+});
+expect(inReviewCase.state).toBe("IN_REVIEW");
+
+// 4. State Machine: Resolving with Determination
+const resolvedCase = transitionCase(inReviewCase, {
+  type: "RESOLVE",
+  determination: {
+    determinationId: "det_001",
+    type: "approved_override",
+    reviewerId: "rev_alice",
+    decidedAt: "2026-10-01T13:00:00.000Z",
+    rationale: "Approved with CISO executive exception."
+  }
+});
+expect(resolvedCase.state).toBe("RESOLVED");</code></pre>
+        </div>
+
+        <div class="battle-rule" style="margin-top: 1.5rem;">
+          <div class="battle-rule-title">🎯 FDE Battle Rule: "Every Human Minute Must Count on Actionable Exceptions"</div>
+          <div class="battle-rule-body">
+            หน้าที่ของวิศวกรซอฟต์แวร์แนวหน้า ไม่ใช่การสร้างแดชบอร์ดที่ถมงานให้มนุษย์ทำมากขึ้น แต่คือการสร้างระบบคัดกรองอัจฉริยะที่ลดภาระงานซ้ำซากลง 90% และนำเวลาอันมีค่าของผู้เชี่ยวชาญ (Reviewer) ไปโฟกัสเฉพาะจุดที่มีความเสี่ยงต่อธุรกิจจริง (Actionable Exceptions) พร้อมมี Audit Trail ที่ครบถ้วนสมบูรณ์
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -1401,7 +1535,7 @@ expect(rogueFindings[0].reasoning).toContain("Grounding violation");</code></pre
       const activeBtn = document.getElementById('tab-' + tabId);
       if (activeBtn) activeBtn.classList.add('active');
 
-      const sections = ['curriculum', 'domain', 'arch', 'stage01', 'stage02', 'stage03', 'stage04'];
+      const sections = ['curriculum', 'domain', 'arch', 'stage01', 'stage02', 'stage03', 'stage04', 'stage05'];
       sections.forEach(s => {
         const el = document.getElementById('section-' + s);
         if (el) el.style.display = (s === tabId) ? 'block' : 'none';
